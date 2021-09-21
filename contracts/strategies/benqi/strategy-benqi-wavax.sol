@@ -400,10 +400,11 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
         if (_want > 0) {
             //unwrap wavax to avax for benqi
              WAVAX(want).withdraw(_want);
-             //wavax:avax || 1:1
-             require((address(this).balance == _want, "!unwrapping failed" ));
+             //wavax:avax || 1:1, +ve test >= rather ==
+             require((address(this).balance >= _want, "!unwrapping failed" ));
             IERC20(want).safeApprove(qiavax, 0);
             IERC20(want).safeApprove(qiavax, _want);
+            //IqiToken.mint external payable
             require(IQiToken(qiavax).mint(_want) == 0, "!deposit");
         }
     }
