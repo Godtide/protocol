@@ -417,15 +417,20 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
         uint256 _want = balanceOfWant();
         if (_want < _amount) {
             uint256 _redeem = _amount.sub(_want);
+            //unwrap wavax to avax for benqi
+            uint256 redeem = WAVAX(want).withdraw(_redeem);
+             //wavax:avax || 1:1
+             //make sure the contract address receives avax
+             require((address(this).balance >= redeem, "!unwrapping failed" ));
 
             // Make sure market can cover liquidity
-            require(IQiToken(qiavax).getCash() >= _redeem, "!cash-liquidity");
+            require(IQiToken(qiavax).getCash() >= redeem, "!cash-liquidity");
 
             // How much borrowed amount do we need to free?
             uint256 borrowed = getBorrowed();
             uint256 supplied = getSupplied();
             uint256 curLeverage = getCurrentLeverage();
-            uint256 borrowedToBeFree = _redeem.mul(curLeverage).div(1e18);
+            uint256 borrowedToBeFree = redeem.mul(curLeverage).div(1e18);
 
             // If the amount we need to free is > borrowed
             // Just free up all the borrowed amount
@@ -438,9 +443,13 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
             }
 
             // Redeems underlying
-            require(IQiToken(qiavax).redeemUnderlying(_redeem) == 0, "!redeem");
-        }
+            require(IQiToken(qiavax).redeemUnderlying(redeem) == 0, "!redeem");
 
+            _amount = want.add(
+            //wrap avax to wavax
+             WAVAX(want).deposit(borrowedToBeFree);
+            );
+        }
         return _amount;
     }
 }
