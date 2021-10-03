@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.2;
+pragma solidity ^0.6.7;
 
 import "../../lib/erc20.sol";
 import "../../lib/safe-math.sol";
@@ -347,24 +347,10 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
     function harvest() public override onlyBenevolent {
         address[] memory qitokens = new address[](1);
         qitokens[0] = qiavax;
-
-        IComptroller(comptroller).claimReward(0, address(this)); //ClaimQi
-        uint256 _benqi = IERC20(benqi).balanceOf(address(this));
-        if (_benqi > 0) {
-            _swapPangolin(benqi, want, _benqi);
-        }
-				
+        IComptroller(comptroller).claimReward(0, address(this)); //ClaimQi	
 		IComptroller(comptroller).claimReward(1, address(this)); //ClaimAvax
 		uint256 _avax = address(this).balance;            //get balance of native Avax
-        if (_avax > 0) {                                 //wrap avax into ERC20
-            WAVAX(wavax).deposit{value: _avax}();
-        }
-		
-        uint256 _wavax = IERC20(wavax).balanceOf(address(this));
-        if (_wavax > 0) {
-            _swapPangolin(wavax, want, _wavax);
-        }
-
+       
         _distributePerformanceFeesAndDeposit();
     }
 	

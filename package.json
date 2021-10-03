@@ -39,5 +39,23 @@
     "rules": {
       "semi": "error"
     }
-  }
+  },
+  "name": "protocol",
+  "description": "Solidity files relating to the Snowball protocol.",
+  "version": "1.0.0",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Godtide/protocol.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Godtide/protocol/issues"
+  },
+  "homepage": "https://github.com/Godtide/protocol#readme"
 }
