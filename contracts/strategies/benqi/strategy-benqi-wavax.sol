@@ -344,15 +344,20 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
 	// allow Native Avax
 	receive() external payable {}
 
-    function harvest() public override onlyBenevolent {
+     function harvest() public override onlyBenevolent {
         address[] memory qitokens = new address[](1);
         qitokens[0] = qiavax;
-        IComptroller(comptroller).claimReward(0, address(this)); //ClaimQi	
+        
+        IComptroller(comptroller).claimReward(0, address(this)); //ClaimQi
+       
 		IComptroller(comptroller).claimReward(1, address(this)); //ClaimAvax
 		uint256 _avax = address(this).balance;            //get balance of native Avax
-       
+        if (_avax > 0) {                                 //wrap avax into ERC20
+            WAVAX(wavax).deposit{value: _avax}();
+        }
         _distributePerformanceFeesAndDeposit();
     }
+	
 	
 	//Calculate the Accrued Rewards
 	function getHarvestable() external view returns (uint256, uint256) {

@@ -140,16 +140,22 @@ contract ControllerV4 {
         strategies[_token] = _strategy;
     }
 
-    function earn(address _token, uint256 _amount) public {
+      function earn(address _token, uint256 _amount) public {
         address _strategy = strategies[_token];
         address _want = IStrategy(_strategy).want();
         if (_want != _token) {
             address converter = converters[_token][_want];
             IERC20(_token).safeTransfer(converter, _amount);
+            
             _amount = Converter(converter).convert(_strategy);
-            IERC20(_want).safeTransfer(_strategy, _amount);
+            
+             IERC20(_want).safeApprove(_strategy, 0);
+             IERC20(_want).safeApprove(_strategy, _amount);
+             IERC20(_want).safeTransfer(_strategy, _amount);
         } else {
-            IERC20(_token).safeTransfer(_strategy, _amount);
+             IERC20(_token).safeApprove(_strategy, 0);
+             IERC20(_token).safeApprove(_strategy, _amount);
+             IERC20(_token).safeTransfer(_strategy, _amount);
         }
         IStrategy(_strategy).deposit();
     }
