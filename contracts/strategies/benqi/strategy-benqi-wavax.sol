@@ -386,7 +386,7 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
         return rewardAccrued.add(supplyAccrued.sub(borrowAccrued));
 	}
 
-    function deposit() public override {
+    function deposit() public override payable{
         uint256 _want = IERC20(want).balanceOf(address(this));
         if (_want > 0) {
             //unwrap wavax to avax for benqi
