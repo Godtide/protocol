@@ -386,17 +386,21 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
         return rewardAccrued.add(supplyAccrued.sub(borrowAccrued));
 	}
 
-    function deposit() public override payable{
+     function deposit() public override payable {
         uint256 _want = IERC20(want).balanceOf(address(this));
-        if (_want > 0) {
+        
+            require(_want > 0, "Balance of strategy empty");
             //unwrap wavax to avax for benqi
                WAVAX(want).withdraw(_want);
-              //make sure the contract address receives avax
-            IERC20(want).safeApprove(qiavax, 0);
-            IERC20(want).safeApprove(qiavax, _want);
-            //IqiToken.mint external payable
-            require(IQiToken(qiavax).mint(_want) == 0, "!deposit");
-        }
+            //  confirm that msg.sender received avax
+             require(address(this).balance >= _want, "!unwrap unsuccessful");
+           
+            // mint qiTokens external payable
+              IQiAvax(qiavax).mint{value: _want}();
+              
+            //confirm that qiTokens is received in exchange
+          require( IQiToken(qiavax).balanceOf(address(this)) > 0 , "qitokens not received" );
+            
     }
 
     function _withdrawSome(uint256 _amount)
