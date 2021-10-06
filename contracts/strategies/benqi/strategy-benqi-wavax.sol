@@ -433,7 +433,7 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
             // Redeems underlying
             require(IQiToken(qiavax).redeemUnderlying(_redeem) == 0, "!redeem");
              //wrap avax to wavax
-             WAVAX(want).deposit();
+             WAVAX(wavax).deposit{value: _redeem}();
              //confirm contract address now holds enough wavax;
              require(IERC20(want).balanceOf(address(this)) >= _amount, "!NotEnoughWavax");
         }
