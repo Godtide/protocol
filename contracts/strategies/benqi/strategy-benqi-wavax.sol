@@ -349,6 +349,11 @@ contract StrategyBenqiavax is StrategyBase, Exponential {
         qitokens[0] = qiavax;
         
         IComptroller(comptroller).claimReward(0, address(this)); //ClaimQi
+
+        uint256 _benqi = IERC20(benqi).balanceOf(address(this));
+        if (_benqi > 0) {
+            _swapPangolin(benqi, want, _benqi);
+        }
        
 		IComptroller(comptroller).claimReward(1, address(this)); //ClaimAvax
 		uint256 _avax = address(this).balance;            //get balance of native Avax
