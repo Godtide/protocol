@@ -148,13 +148,8 @@ contract ControllerV4 {
             IERC20(_token).safeTransfer(converter, _amount);
             
             _amount = Converter(converter).convert(_strategy);
-            
-             IERC20(_want).safeApprove(_strategy, 0);
-             IERC20(_want).safeApprove(_strategy, _amount);
              IERC20(_want).safeTransfer(_strategy, _amount);
         } else {
-             IERC20(_token).safeApprove(_strategy, 0);
-             IERC20(_token).safeApprove(_strategy, _amount);
              IERC20(_token).safeTransfer(_strategy, _amount);
         }
         IStrategy(_strategy).deposit();
