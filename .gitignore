@@ -112,3 +112,5 @@ SnowballWallets.json
 .DS_Store
 cache/
 contracts/snowglobes/pangolin/snowglobe-png-tusd-png
+contracts/strategies/pangolin/strategy-png-avax-spore.sol
+contracts/strategies/pangolin/strategy-png-spore-png.sol

@@ -1,61 +1,58 @@
 {
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "inquirer": "^7.3.3",
-    "node-fetch": "^2.6.1",
-    "ora": "^5.1.0",
-    "remixd": "^0.2.4-alpha.0",
-    "truffle-flattener": "^1.5.0",
-    "web3": "^1.3.4"
-  },
-  "scripts": {
-    "flatten": "npx sol-merger \"./src/**/*.sol\" ./build",
-    "test": "mocha"
-  },
-  "devDependencies": {
-    "@eth-optimism/smock": "^1.1.5",
-    "@nomiclabs/ethereumjs-vm": "^4.2.2",
-    "@nomiclabs/hardhat-ethers": "^2.0.2",
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@openzeppelin/contracts": "^4.1.0",
-    "chai": "^4.3.4",
-    "dotenv": "^10.0.0",
-    "eslint": "^7.10.0",
-    "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.4.7",
-    "hardhat": "^2.6.4",
-    "mocha": "^7.2.0"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+    "dependencies": {
+        "chalk": "^4.1.0",
+        "inquirer": "^7.3.3",
+        "node-fetch": "^2.6.1",
+        "ora": "^5.1.0",
+        "remixd": "^0.2.4-alpha.0",
+        "truffle-flattener": "^1.5.0",
+        "web3": "^1.3.4"
     },
-    "env": {
-      "es6": true,
-      "node": true
+    "scripts": {
+        "flatten": "npx sol-merger \"./src/**/*.sol\" ./build",
+        "test": "mocha"
     },
-    "rules": {
-      "semi": "error"
-    }
-  },
-  "name": "protocol",
-  "description": "Solidity files relating to the Snowball protocol.",
-  "version": "1.0.0",
-  "main": "hardhat.config.js",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Godtide/protocol.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Godtide/protocol/issues"
-  },
-  "homepage": "https://github.com/Godtide/protocol#readme"
+    "devDependencies": {
+        "@eth-optimism/smock": "^1.1.5",
+        "@nomiclabs/ethereumjs-vm": "^4.2.2",
+        "@nomiclabs/hardhat-ethers": "^2.0.2",
+        "@nomiclabs/hardhat-waffle": "^2.0.1",
+        "@openzeppelin/contracts": "^4.1.0",
+        "chai": "^4.3.4",
+        "dotenv": "^10.0.0",
+        "eslint": "^7.10.0",
+        "ethereum-waffle": "^3.4.0",
+        "ethers": "^5.4.7",
+        "hardhat": "^2.6.4",
+        "mocha": "^7.2.0"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "parserOptions": {
+            "ecmaVersion": 2018,
+            "sourceType": "module"
+        },
+        "env": {
+            "es6": true,
+            "node": true
+        }
+    },
+    "name": "protocol",
+    "description": "Solidity files relating to the Snowball protocol.",
+    "version": "1.0.0",
+    "main": "hardhat.config.js",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Godtide/protocol.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Godtide/protocol/issues"
+    },
+    "homepage": "https://github.com/Godtide/protocol#readme"
 }
